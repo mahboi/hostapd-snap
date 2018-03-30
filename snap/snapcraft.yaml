@@ -16,11 +16,19 @@ type: core
 #	- 
 #
 
+apps:
+  hostapd:
+   
+
+
 parts:
   hostapd:
-	plugin: # needs configuration, uses kbuild-style
+	plugin: make
+   makefile: hostapd/Makefile
 	source: https://w1.fi/releases/hostapd-2.6.tar.gz
-	source-subdir: hostapd
+#	source-subdir: hostapd might not be needed
+   organize: 
+     hostapd/defconf : hostapd/.config # just for testing; replace with own config
 	build-packages: 
 		- libnl3-dev
 		- libnl-genl-3-dev
