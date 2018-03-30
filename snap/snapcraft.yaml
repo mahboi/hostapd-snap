@@ -18,19 +18,21 @@ type: core
 
 apps:
   hostapd:
-   
+    command:
+    daemon:
+        
 
 
 parts:
   hostapd:
 	plugin: make
-   makefile: hostapd/Makefile
+    makefile: hostapd/Makefile
 	source: https://w1.fi/releases/hostapd-2.6.tar.gz
-#	source-subdir: hostapd might not be needed
-   organize: 
-     hostapd/defconf : hostapd/.config # just for testing; replace with own config
+    source-subdir: hostapd
+    organize: 
+        hostapd/defconf : hostapd/.config # just for testing; replace with own config
 	build-packages: 
-		- libnl3-dev
+		- libnl-3-dev
 		- libnl-genl-3-dev
 		- libssl-dev
 
