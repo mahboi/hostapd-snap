@@ -8,7 +8,7 @@ description: |
 
 grade: devel 
 confinement: devmode
-type: os
+type: base
 
 #
 # Known dependancies of hostapd
@@ -18,7 +18,8 @@ type: os
 
 apps:
   hostapd:
-    command: usr/local/bin/hostapd
+    command: usr/local/bin/hostapd -B 
+    plugs: [core-support]
     daemon: forking
     
 
