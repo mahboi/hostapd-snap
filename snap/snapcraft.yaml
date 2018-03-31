@@ -39,12 +39,11 @@ parts:
       - libssl-dev
     plugin: make
     makefile: Makefile
-#    build: |
-#      cd hostapd
-#      make -f Makefile -j$(nproc)
-#    make-install-var: ../../../../stage
-#      - hostapd/hostapd
-#      - hostapd/hostapd-cli
+    install: |
+#      cp hostapd $SNAPCRAFT_PART_INSTALL/bin/hostapd
+#      cp hostapd_cli $SNAPCRAFT_PART_INSTALL/bin/hostapd
+      echo $(pwd)
+#      cp hostapd.conf $SNAPCRAFT_PART_INSTALL/etc/hostapd.conf
     after: [libnl1]
 
 
