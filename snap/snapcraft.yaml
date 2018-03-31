@@ -8,7 +8,7 @@ description: |
 
 grade: devel 
 confinement: devmode
-type: core
+type: os
 
 #
 # Known dependancies of hostapd
@@ -18,22 +18,32 @@ type: core
 
 apps:
   hostapd:
-    command:
-    daemon:
-        
+    command: usr/local/bin/hostapd
+    daemon: forking
+    
 
 
 parts:
+  libnl1:
+    plugin: autotools
+    source: https://www.infradead.org/~tgr/libnl/files/libnl-1.1.4.tar.gz
   hostapd:
-	plugin: make
-    makefile: hostapd/Makefile
-	source: https://w1.fi/releases/hostapd-2.6.tar.gz
+    source: https://w1.fi/releases/hostapd-2.6.tar.gz
     source-subdir: hostapd
-    organize: 
-        hostapd/defconf : hostapd/.config # just for testing; replace with own config
-	build-packages: 
-		- libnl-3-dev
-		- libnl-genl-3-dev
-		- libssl-dev
+    prepare: |
+      cp hostapd/defconfig hostapd/.config # just for testing; replace with own config
+    build-packages: 
+      - libnl-3-dev
+      - libnl-genl-3-dev
+      - libssl-dev
+    plugin: make
+    makefile: Makefile
+#    build: |
+#      cd hostapd
+#      make -f Makefile -j$(nproc)
+#    make-install-var: ../../../../stage
+#      - hostapd/hostapd
+#      - hostapd/hostapd-cli
+    after: [libnl1]
 
 
